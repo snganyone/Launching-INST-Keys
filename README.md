@@ -7,4 +7,4 @@
   * Colin Sullivan
   * Troy Roundtree
 
-## We are developing an end-to-end administrative user-interface for the University of Maryland's iSchool
+###### We are developing an end-to-end administrative user-interface for the University of Maryland's iSchool
