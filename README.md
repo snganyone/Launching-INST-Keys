@@ -8,4 +8,3 @@ This is a repository for University of Maryland's Ischool Key Inventory System :
   - Asia Muhammad
   - Colin Sullivan
   - Troy Roundtree
-:key:
