@@ -15,6 +15,11 @@ else{
 ?>
 </head>
 <body>
+    <div class="ui segment">
+      <h1 class="ui header">University of Maryland's iSchool Key Inventory</h1>
+      <button class="ui left attached button">Left</button>
+      <button class="right attached ui button">Right</button>
+    </div>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <!-- JQuery -->
