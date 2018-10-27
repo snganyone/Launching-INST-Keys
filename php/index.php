@@ -14,6 +14,8 @@ else{
 }
 $people = "SELECT * FROM people";
 $query = $mysqli->query($people);
+$q = "SELECT * FROM room";
+$room = $mysqli->query($q);
 ?>
 </head>
 <body>
@@ -30,7 +32,7 @@ $query = $mysqli->query($people);
     <div class="four wide column">
     </div>
     <div class="twelve wide stretched column">
-  <table class="ui collapsing table">
+  <table class="ui celled table">
     <thead>
       <tr>
         <th>Employee</th>
@@ -44,9 +46,12 @@ $query = $mysqli->query($people);
       <?php foreach($query as $q){ ?>
       <tr>
         <td><?php echo $q['First_name'] . " " . $q['Last_name']; ?></td>
-      <?php } ?>
-        <td></td>
+        <td><?php ?></td>
+        <td><?php ?></td>
+        <td><?php ?></td>
+        <td><?php ?></td>
       </tr>
+      <?php } ?>
     </tbody>
   </table>
     </div>
