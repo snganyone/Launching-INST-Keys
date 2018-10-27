@@ -1,6 +1,6 @@
 # Launching-INST-Keys
 
-This is a repository for University of Marylands
+This is a repository for University of Maryland's Ischool Key Inventory System
 
 * Team members:
   * Shishiri Nganyone
@@ -8,5 +8,3 @@ This is a repository for University of Marylands
   * Asia Muhammad
   * Colin Sullivan
   * Troy Roundtree
-
-### We are developing an end-to-end administrative user-interface for the University of Maryland's iSchool
