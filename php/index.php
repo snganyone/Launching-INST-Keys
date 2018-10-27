@@ -24,7 +24,16 @@ else{
     <a class="item">Edit Inventory</a>
     <a class="item">Help</a>
   </div>
-  <table>
+  <table class="ui collapsing table">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Building Code</th>
+        <th>Room Number</th>
+        <th>Key Number</th>
+        <th>Core Number</th>
+      </tr>
+    </thead>
   </table>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
