@@ -12,6 +12,8 @@ if ($mysqli->connect_errno) {
 else{
   echo "Success";
 }
+$people = "SELECT * FROM people";
+$query = $mysqli->query($people);
 ?>
 </head>
 <body>
@@ -24,6 +26,10 @@ else{
     <a class="item">Edit Inventory</a>
     <a class="item">Help</a>
   </div>
+  <div class="ui grid">
+    <div class="four wide column">
+    </div>
+    <div class="twelve wide stretched column">
   <table class="ui collapsing table">
     <thead>
       <tr>
@@ -34,7 +40,17 @@ else{
         <th>Core Number</th>
       </tr>
     </thead>
+    <tbody>
+      <?php foreach($query as $q){ ?>
+      <tr>
+        <td><?php echo $q['First_name'] . " " . $q['Last_name']; ?></td>
+      <?php } ?>
+        <td></td>
+      </tr>
+    </tbody>
   </table>
+    </div>
+  </div>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <!-- JQuery -->
