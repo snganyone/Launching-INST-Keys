@@ -38,6 +38,18 @@ $query = $mysqli->query($sql);
   </div>
   <div class="ui grid">
     <div class="four wide column">
+      <p class="ui center aligned">Search By</p>
+      <div class="ui selection dropdown">
+        <input type="hidden" name="gender">
+        <i class="dropdown icon"></i>
+        <div class="default text">Employee</div>
+        <div class="menu">
+          <div class="item">Building Code</div>
+          <div class="item">Room Number</div>
+          <div class="item">Key Number</div>
+          <div class="item">Core Number</div>
+        </div>
+      </div>
     </div>
     <div class="twelve wide stretched column">
   <table class="ui celled table">
@@ -67,6 +79,8 @@ $query = $mysqli->query($sql);
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <!-- JQuery -->
-  <script src="jquery-3.3.1.min.js"></script>
+  <script>
+    $('.ui.selection.dropdown').dropdown();
+  </script>
 </body>
 </html>
