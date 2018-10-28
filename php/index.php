@@ -12,10 +12,18 @@ if ($mysqli->connect_errno) {
 else{
   echo "Success";
 }
-$people = "SELECT * FROM people";
+$people = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_number, key_number, Core_number
+    FROM people
+    RIGHT JOIN people_has_keys
+      ON people.id_names = people_has_keys.id_names
+        LEFT JOIN inst_490.keys k
+    		  ON people_has_keys.id_keys = k.id_keys
+  	RIGHT JOIN room r
+  		ON k.id_Room = r.id_Room
+  	RIGHT JOIN core c
+  		ON k.id_Core = c.id_Core
+      ORDER BY Last_name DESC";
 $query = $mysqli->query($people);
-$q = "SELECT * FROM room";
-$room = $mysqli->query($q);
 ?>
 </head>
 <body>
@@ -45,11 +53,11 @@ $room = $mysqli->query($q);
     <tbody>
       <?php foreach($query as $q){ ?>
       <tr>
-        <td><?php echo $q['First_name'] . " " . $q['Last_name']; ?></td>
-        <td><?php ?></td>
-        <td><?php ?></td>
-        <td><?php ?></td>
-        <td><?php ?></td>
+        <td><?php echo $q['employee']; ?></td>
+        <td><?php echo $q['Building']; ?></td>
+        <td><?php echo $q['Room_number']; ?></td>
+        <td><?php echo $q['key_number'];?></td>
+        <td><?php echo $q['Core_number'];?></td>
       </tr>
       <?php } ?>
     </tbody>
