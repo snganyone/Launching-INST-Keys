@@ -12,7 +12,7 @@ if ($mysqli->connect_errno) {
 else{
   echo "Success";
 }
-$people = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_number, key_number, Core_number
+$sql = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_number, key_number, Core_number
     FROM people
     RIGHT JOIN people_has_keys
       ON people.id_names = people_has_keys.id_names
@@ -23,7 +23,7 @@ $people = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room
   	RIGHT JOIN core c
   		ON k.id_Core = c.id_Core
       ORDER BY Last_name DESC";
-$query = $mysqli->query($people);
+$query = $mysqli->query($sql);
 ?>
 </head>
 <body>
