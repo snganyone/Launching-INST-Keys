@@ -10,7 +10,7 @@ if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 else{
-  echo "Success";
+  //echo "Success";
 }
 $sql = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_number, key_number, Core_number
     FROM people
@@ -27,15 +27,23 @@ $query = $mysqli->query($sql);
 ?>
 </head>
 <body>
-    <div class="ui clearing segment">
-        <h1 class="ui left floated header">University of Maryland's iSchool Key Inventory</h1>
-        <button class="ui positive right floated button">Log In</button>
+    <div class="container shadow-sm p-3 mb-5 bg-white rounded">
+        <div class="row">
+          <div class="col">
+          <h1>iSchool Key Inventory</h1>
+          </div>
+          <div class="col">
+          <button class="float-md-right btn btn-success">Log In</button>
+          </div>
+          </div>
+        </div>
+      <div>
+        <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link active" href="#">Active</a>
+        <a class="nav-item nav-link" href="#">Edit Inventory</a>
+        <a class="nav-item nav-link" href="#">Help</a>
+      </nav>
     </div>
-  <div class="ui three item menu">
-    <a class="active item">Home (Query/View Inventory)</a>
-    <a class="item">Edit Inventory</a>
-    <a class="item">Help</a>
-  </div>
   <div class="ui grid">
     <div class="four wide column">
       <p class="ui center aligned">Search By</p>
