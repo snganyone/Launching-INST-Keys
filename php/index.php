@@ -44,44 +44,46 @@ $query = $mysqli->query($sql);
         <a class="nav-item nav-link" href="#">Help</a>
       </nav>
     </div>
-  <div class="ui grid">
-    <div class="four wide column">
-      <p class="ui center aligned">Search By</p>
-      <div class="ui selection dropdown">
-        <input type="hidden" name="gender">
-        <i class="dropdown icon"></i>
-        <div class="default text">Employee</div>
-        <div class="menu">
-          <div class="item">Building Code</div>
-          <div class="item">Room Number</div>
-          <div class="item">Key Number</div>
-          <div class="item">Core Number</div>
-        </div>
+
+    <br><br><br>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+    <div class="dropdown">
+      <p>Search by</p>
+      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Employee</button>
+      <div class="dropdown-menu">
+        <button class="dropdown-item active">Building Code</button>
+        <button class="dropdown-item">Room Number</button>
+        <button class="dropdown-item">Key Number</button>
+        <button class="dropdown-item">Core Number</button>
       </div>
+      </div>
+      </div>
+  <div class="col-sm-8">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Building Code</th>
+          <th>Room Number</th>
+          <th>Key Number</th>
+          <th>Core Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($query as $q){ ?>
+        <tr>
+          <td><?php echo $q['employee']; ?></td>
+          <td><?php echo $q['Building']; ?></td>
+          <td><?php echo $q['Room_number']; ?></td>
+          <td><?php echo $q['key_number'];?></td>
+          <td><?php echo $q['Core_number'];?></td>
+        </tr>
+        <?php } ?>
+      </tbody>
+    </table>
     </div>
-    <div class="twelve wide stretched column">
-  <table class="ui celled table">
-    <thead>
-      <tr>
-        <th>Employee</th>
-        <th>Building Code</th>
-        <th>Room Number</th>
-        <th>Key Number</th>
-        <th>Core Number</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach($query as $q){ ?>
-      <tr>
-        <td><?php echo $q['employee']; ?></td>
-        <td><?php echo $q['Building']; ?></td>
-        <td><?php echo $q['Room_number']; ?></td>
-        <td><?php echo $q['key_number'];?></td>
-        <td><?php echo $q['Core_number'];?></td>
-      </tr>
-      <?php } ?>
-    </tbody>
-  </table>
     </div>
   </div>
   <!-- Bootstrap JavaScript -->
@@ -90,7 +92,7 @@ $query = $mysqli->query($sql);
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <!-- JQuery -->
   <script>
-
+  $('.dropdown-toggle').dropdown();
   </script>
 </body>
 </html>
