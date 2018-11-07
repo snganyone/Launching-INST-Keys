@@ -9,7 +9,7 @@ This is a repository for University of Maryland's Ischool Key Inventory System :
   - Colin Sullivan
   - Troy Roundtree
 
-### Folder Structure
+### Folder Structure :file_folder:
 
 #### PHP
 Contains all the server-side web scripting tools and files. This folder will be used directly on the server.
