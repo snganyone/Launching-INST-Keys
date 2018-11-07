@@ -13,3 +13,6 @@ This is a repository for University of Maryland's Ischool Key Inventory System :
 
 #### PHP
 Contains all the server-side web scripting tools and files. This folder will be used directly on the server.
+
+#### JavaScript
+This folder contains all the javascript files used to add interactivity to the application
