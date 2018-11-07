@@ -52,7 +52,8 @@ $query = $mysqli->query($sql);
     <div class="row">
       <div class="col-sm-4">
     <div class="dropdown">
-      <p>Search by</p>
+      <b>Search by</b>
+      <br><br>
       <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Employee</button>
       <div class="dropdown-menu">
         <button class="dropdown-item active">Building Code</button>
@@ -61,6 +62,8 @@ $query = $mysqli->query($sql);
         <button class="dropdown-item">Core Number</button>
       </div>
       </div>
+      <br>
+      <button class="btn btn-outline-primary">Search</button>
       </div>
   <div class="col-sm-8">
     <table class="table table-bordered">
