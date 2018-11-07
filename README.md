@@ -20,4 +20,5 @@ This folder contains all the javascript files used to add interactivity to the a
 #### SQL
 This folder contains a dump of the database as an sql dump file.
 
+## Project Goal
 This project aims to develop an end-to-end administrative web application interface to keep inventory of locks, keys, and associated rooms for the University of Maryland's iSchool. :closed_lock_with_key:
