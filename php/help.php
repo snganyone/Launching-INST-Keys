@@ -40,8 +40,8 @@ $query = $mysqli->query($sql);
       <div>
         <nav class="nav nav-pills nav-fill">
         <a class="nav-item nav-link" href="index.php">Home(Query/View) Inventory</a>
-        <a class="nav-item nav-link" href="#">Edit Inventory</a>
-        <a class="nav-item nav-link" href="help.php">Help</a>
+        <a class="nav-item nav-link" href="#">Inventory</a>
+        <a class="nav-item nav-link active" href="help.php">Help</a>
       </nav>
     </div>
 
