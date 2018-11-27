@@ -1,3 +1,4 @@
 <script>
-//$('.dropdown-toggle').dropdown();
+//Tabbable tabs
+
 </script>
