@@ -39,7 +39,7 @@ $query = $mysqli->query($sql);
           </div>
         </div>
     <div class="container">
-      <ul class="nav nav-pills">
+      <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
           <a class="nav-link active" href="index.php">Home(Query/View) Inventory</a>
         </li>
