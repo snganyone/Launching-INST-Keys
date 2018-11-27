@@ -52,7 +52,7 @@ $query = $mysqli->query($sql);
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Help</a>
+          <a class="nav-link" href="help.php">Help</a>
         </li>
       </ul>
     </div>
