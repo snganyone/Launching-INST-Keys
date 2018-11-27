@@ -37,17 +37,24 @@ $query = $mysqli->query($sql);
           </div>
           </div>
         </div>
-      <div>
-        <nav class="nav nav-pills nav-fill">
-        <a class="nav-item nav-link" href="index.php">Home(Query/View) Inventory</a>
-        <div class="dropdown">
-          <a class="nav-item nav-link" href="#"><button class="btn">Inventory</button></a>
-          <div class="dropdown-menu">
-          </div>
+        <div class="container">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.php">Home(Query/View) Inventory</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inventory</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Add Inventory</a>
+                <a class="dropdown-item" href="#">Update Inventory</a>
+                <a class="dropdown-item" href="#">Delete Inventory</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Help</a>
+            </li>
+          </ul>
         </div>
-        <a class="nav-item nav-link active" href="help.php">Help</a>
-      </nav>
-    </div>
 
     <br><br><br>
     <div class="container">
