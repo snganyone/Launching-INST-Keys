@@ -26,4 +26,69 @@ $sql = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_nu
 $query = $mysqli->query($sql);
 ?>
 </head>
+<body>
+    <div class="container shadow-sm p-3 mb-5 bg-white rounded">
+        <div class="row">
+          <div class="col">
+          <h1>iSchool Key Inventory</h1>
+          </div>
+          <div class="col">
+          <button class="float-md-right btn btn-success">Log In</button>
+          </div>
+          </div>
+        </div>
+      <div>
+        <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link active" href="index.php">Home(Query/View) Inventory</a>
+        <a class="nav-item nav-link" href="#">Edit Inventory</a>
+        <a class="nav-item nav-link" href="help.php">Help</a>
+      </nav>
+    </div>
+
+    <br><br><br>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-4">
+      <div class="dropdown">
+        <b>Search by</b>
+        <br><br>
+        <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Employee</button>
+        <div class="dropdown-menu">
+          <button class="dropdown-item active">Building Code</button>
+          <button class="dropdown-item">Room Number</button>
+          <button class="dropdown-item">Key Number</button>
+          <button class="dropdown-item">Core Number</button>
+        </div>
+        </div>
+        <br>
+        <button class="btn btn-outline-primary">Search</button>
+        </div>
+    <div class="col-sm-8">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Building Code</th>
+            <th>Room Number</th>
+            <th>Key Number</th>
+            <th>Core Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach($query as $q){ ?>
+          <tr>
+            <td><?php echo $q['employee']; ?></td>
+            <td><?php echo $q['Building']; ?></td>
+            <td><?php echo $q['Room_number']; ?></td>
+            <td><?php echo $q['key_number'];?></td>
+            <td><?php echo $q['Core_number'];?></td>
+          </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+      </div>
+      </div>
+    </div>
+</body>
 </html>
