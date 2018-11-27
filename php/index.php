@@ -38,12 +38,23 @@ $query = $mysqli->query($sql);
           </div>
           </div>
         </div>
-      <div>
-        <nav class="nav nav-pills nav-fill" id="navbar">
-        <a class="nav-item nav-link active" href="index.php">Home(Query/View) Inventory</a>
-        <a class="nav-item nav-link" href="#">Inventory</a>
-        <a class="nav-item nav-link" href="help.php">Help</a>
-      </nav>
+    <div class="container">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.php">Home(Query/View) Inventory</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inventory</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Add Inventory</a>
+            <a class="dropdown-item" href="#">Update Inventory</a>
+            <a class="dropdown-item" href="#">Delete Inventory</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Help</a>
+        </li>
+      </ul>
     </div>
 
     <br><br><br>
