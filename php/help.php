@@ -47,7 +47,6 @@ $query = $mysqli->query($sql);
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">Add Inventory</a>
                 <a class="dropdown-item" href="#">Update Inventory</a>
-                <a class="dropdown-item" href="#">Delete Inventory</a>
               </div>
             </li>
             <li class="nav-item">
