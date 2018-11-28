@@ -59,9 +59,17 @@ $query = $mysqli->query($sql);
 <div>
   <form>
     <div class="form-row">
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-6">
       <label>Employee</label>
       <input type="text" class="form-control">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Building Code</label>
+        <input type="text" class="form-control">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Key Number</label>
+        <input type="text" class="form-control">
       </div>
     </div>
   </form>
