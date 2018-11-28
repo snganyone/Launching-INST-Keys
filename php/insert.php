@@ -55,6 +55,17 @@ $query = $mysqli->query($sql);
           </li>
         </ul>
       </div>
+<br><br><br>
+<div>
+  <form>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+      <label>Employee</label>
+      <input type="text" class="form-control">
+      </div>
+    </div>
+  </form>
+</div>
 <!-- Bootstrap JavaScript -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
