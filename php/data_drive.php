@@ -16,4 +16,10 @@ $building_code = $_POST['Building'];
 $room = $_POST['Room_number'];
 $key = $_POST['key_number'];
 $core = $_POST['Core_number'];
+
+//SQL Injection
+if(isset($_POST['submit'])){
+  $sql = 'INSERT INTO people VALUES(NULL, $first_name, $last_name)';
+  
+}
  ?>
