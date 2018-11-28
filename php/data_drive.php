@@ -12,4 +12,8 @@ else{
 //Store Data to Post array
 $first_name = $_POST['First_name'];
 $last_name = $_POST['Last_name'];
+$building_code = $_POST['Building'];
+$room = $_POST['Room_number'];
+$key = $_POST['key_number'];
+$core = $_POST['Core_number'];
  ?>
