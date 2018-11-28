@@ -60,15 +60,29 @@ $query = $mysqli->query($sql);
   <form>
     <div class="form-row">
       <div class="form-group col-md-6">
-      <label>Employee</label>
+      <label>First Name</label>
+      <input type="text" class="form-control">
+      </div>
+      <div class="form-group col-md-6">
+        <label>Last Name</label>
+        <input type="text" class="form-control">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+      <label>Building Code</label>
       <input type="text" class="form-control">
       </div>
       <div class="form-group col-md-2">
-        <label>Building Code</label>
+        <label>Key Number</label>
         <input type="text" class="form-control">
       </div>
       <div class="form-group col-md-2">
-        <label>Key Number</label>
+        <label>Room Number</label>
+        <input type="text" class="form-control">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Core Number</label>
         <input type="text" class="form-control">
       </div>
     </div>
