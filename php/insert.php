@@ -57,7 +57,7 @@ $query = $mysqli->query($sql);
       </div>
 <br><br><br>
 <div>
-  <form>
+  <form method="post" action="data_drive.php">
     <div class="form-row">
       <div class="form-group col-md-6">
       <label>First Name</label>
@@ -86,6 +86,7 @@ $query = $mysqli->query($sql);
         <input type="text" class="form-control">
       </div>
     </div>
+    <button type="submit" class="btn btn-success">Submit</button>
   </form>
 </div>
 <!-- Bootstrap JavaScript -->
