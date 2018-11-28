@@ -87,7 +87,7 @@ $query = $mysqli->query($sql);
         <input type="text" class="form-control">
       </div>
     </div>
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Submit</button>
   </form>
 </div>
 <!-- Bootstrap JavaScript -->
