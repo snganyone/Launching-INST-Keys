@@ -87,12 +87,6 @@ $tab = $query->fetch_assoc();
         <label>Core Number</label>
         <input type="text" class="form-control" name="Core_number">
       </div>
-      <div class="form-group col-md-2">
-        <input type="hidden" class="form-control" name="id_Core">
-      </div>
-      <div class="form-group col-md-2">
-        <input type="hidden" class="form-control" name="id_Room">
-      </div>
     </div>
     <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Submit</button>
   </form>
