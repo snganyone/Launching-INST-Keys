@@ -14,7 +14,7 @@ if ($mysqli->connect_errno) {
 else{
   //echo "Success";
 }
-$sql = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_number, key_number, Core_number
+$sql = "SELECT CONCAT(IFNULL(First_name,''), ' ', IFNULL(Last_name,'')) AS employee, Building, Room_number, key_number, Core_number
 FROM people
 JOIN people_has_keys
   ON people.id_names = people_has_keys.id_names
