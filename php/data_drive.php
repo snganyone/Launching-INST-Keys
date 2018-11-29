@@ -25,13 +25,11 @@ if(isset($_POST['submit'])){
   $sql = "INSERT INTO people VALUES(NULL, '$first_name', '$last_name');";
   $sql .= "INSERT INTO core VALUES(NULL, '$core');";
   $sql .= "INSERT INTO `keys` VALUES(NULL, '$key', '$id_core', '$id_room');";
-  $sql.= "INSERT INTO room VALUES(NULL, '$room', '$building_code')";
+  $sql .= "INSERT INTO room VALUES(NULL, '$room', '$building_code')";
   $query = $mysqli->multi_query($sql);
   echo "success";
 }
 else{
   echo "Failure";
 }
-
-
  ?>
