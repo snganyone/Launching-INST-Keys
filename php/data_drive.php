@@ -12,19 +12,24 @@ else{
 //Store Data to Post array
 $first_name = $_POST['First_name'];
 $last_name = $_POST['Last_name'];
-/*$building_code = $_POST['Building'];
+$building_code = $_POST['Building'];
 $room = $_POST['Room_number'];
 $key = $_POST['key_number'];
-$core = $_POST['Core_number'];*/
+$core = $_POST['Core_number'];
 
 
 //SQL Injection
 if(isset($_POST['submit'])){
-  $sql = "INSERT INTO people VALUES(NULL, '$first_name', '$last_name')";
-  /*$sql .= "INSERT INTO room VALUES(NULL, '$room', '$building_code');";
+  $sql = "INSERT INTO people VALUES(NULL, '$first_name', '$last_name');";
   $sql .= "INSERT INTO core VALUES(NULL, '$core');";
-  $sql .= "INSERT INTO `keys` VALUES(NULL, '$key', NULL, NULL)";*/
-  $query = $mysqli->query($sql);
+  $sql .= "INSERT INTO `keys` VALUES(NULL, '$key', NULL, NULL);";
+  $sql.= "INSERT INTO room VALUES(NULL, '$room', '$building_code')";
+  $query = $mysqli->multi_query($sql);
   echo "success";
 }
+else{
+  echo "Failure";
+}
+
+
  ?>

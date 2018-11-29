@@ -70,7 +70,7 @@ $tab = $query->fetch_assoc();
         <input type="text" class="form-control" name="Last_name">
       </div>
     </div>
-    <!--<div class="form-row">
+    <div class="form-row">
       <div class="form-group col-md-2">
       <label>Building Code</label>
       <input type="text" class="form-control" name="Building">
@@ -87,7 +87,7 @@ $tab = $query->fetch_assoc();
         <label>Core Number</label>
         <input type="text" class="form-control" name="Core_number">
       </div>
-    </div>-->
+    </div>
     <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Submit</button>
   </form>
 </div>
