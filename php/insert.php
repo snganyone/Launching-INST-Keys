@@ -26,6 +26,7 @@ $sql = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_nu
     ON k.id_Core = c.id_Core
     ORDER BY Last_name DESC";
 $query = $mysqli->query($sql);
+$tab = $query->fetch_assoc();
 ?>
 </head>
 <body>
@@ -57,36 +58,36 @@ $query = $mysqli->query($sql);
         </ul>
       </div>
 <br><br><br>
-<div>
+<div id="form">
   <form method="post" action="data_drive.php">
     <div class="form-row">
       <div class="form-group col-md-6">
       <label>First Name</label>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" name="First_name">
       </div>
       <div class="form-group col-md-6">
         <label>Last Name</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" name="Last_name">
       </div>
     </div>
-    <div class="form-row">
+    <!--<div class="form-row">
       <div class="form-group col-md-2">
       <label>Building Code</label>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" name="Building">
       </div>
       <div class="form-group col-md-2">
         <label>Key Number</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" name="key_number">
       </div>
       <div class="form-group col-md-2">
         <label>Room Number</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" name="Room_number">
       </div>
       <div class="form-group col-md-2">
         <label>Core Number</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" name="Core_number">
       </div>
-    </div>
+    </div>-->
     <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Submit</button>
   </form>
 </div>
