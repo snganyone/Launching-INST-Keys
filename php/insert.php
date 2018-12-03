@@ -4,8 +4,18 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+<title>Add to Inventory</title>
+
 <?php
-$config = parse_ini_file('php.ini');
+
+$e = "select * from People";
+$b = "select distinct Building from Room";
+$r = "select * from Room";
+$k = "select * from Keys";
+$c = "select * from Core";
+$row = null;
+
+/*$config = parse_ini_file('php.ini');
 //Database Connection
 $mysqli = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
 if ($mysqli->connect_errno) {
@@ -13,8 +23,24 @@ if ($mysqli->connect_errno) {
 }
 else{
 //echo "Success";
-}
-$sql = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_number, key_number, Core_number
+}*/
+require_once 'keyLogin.php';
+    $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
+    if ($conn->connect_error) die($conn->connect_error);
+
+$employee = $conn->query($e);
+$building_code = $conn->query($b);
+$room_number = $conn->query($r);
+$key_number = $conn->query($k);
+$core_number = $conn->query($c);
+
+if ($_GET['eid']) {
+    $eidq = "select * from People where id_names = " . $_GET['eid'];
+    $em = $conn->query($eidq);
+    $row = $em->fetch_assoc();
+  }
+
+$sql = "SELECT CONCAT(IFNULL(First_Name, ''), ' ',IFNULL(Last_name, '')) AS employee, Building, Room_number, key_number, Core_number
   FROM people
   JOIN people_has_keys
     ON people.id_names = people_has_keys.id_names
@@ -25,8 +51,9 @@ $sql = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_nu
   JOIN core c
     ON k.id_Core = c.id_Core
     ORDER BY Last_name DESC";
-$query = $mysqli->query($sql);
-$tab = $query->fetch_assoc();
+$query = $conn->query($sql);
+
+include 'insertModel.php'
 ?>
 </head>
 <body>
@@ -46,10 +73,10 @@ $tab = $query->fetch_assoc();
             <a class="nav-link" href="index.php">Home(Query/View) Inventory</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inventory</a>
+            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit Inventory</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Add Inventory</a>
-              <a class="dropdown-item" href="#">Update Inventory</a>
+              <a class="dropdown-item" href="insert.php">Add to Inventory</a>
+              <a class="dropdown-item" href="update.php">Update Inventory</a>
             </div>
           </li>
           <li class="nav-item">
@@ -58,34 +85,49 @@ $tab = $query->fetch_assoc();
         </ul>
       </div>
 <br><br><br>
-<div id="form">
+<div>
   <form method="post" action="data_drive.php">
     <div class="form-row">
-      <div class="form-group col-md-6">
-      <label>First Name</label>
-      <input type="text" class="form-control" name="First_name">
+      <div class="form-group col-md-2">
+        <label>Employee</label>
+        <select name="name" class="form-control" required="required">
+          <option value="" selected="selected">Please Make a Choice</option>
+          <?php foreach ($employee as $r): ?>
+                <?php if ($r['id_names'] == $row['employee']): ?>
+                  <option value="<?=$r['id_names']?>" selected="selected"><?=$r['First_name'] . " " . $r['Last_name']?></option>
+                <?php else: ?>
+                  <option value="<?=$r['id_names']?>"><?=$r['First_name'] . " " . $r['Last_name']?></option>
+                <?php endif ?>
+              <?php endforeach ?>
+        </select>
       </div>
-      <div class="form-group col-md-6">
-        <label>Last Name</label>
-        <input type="text" class="form-control" name="Last_name">
+      <div class="form-group col-md-2">
+        <a href="FormAdd.php" class="btn btn-info">Add New Employee</a>
       </div>
+
+     <div class="form-group col-md-2">
+      <label>Building Code</label>
+      <?=dropdown('Building', $building_code, $row['Building'])?>
+      </div>
+      <div class="form-group col-md-2">
+        <a href="FormAdd2.php" class="btn btn-info">Add New Building Code</a>
+      </div>
+
     </div>
     <div class="form-row">
-      <div class="form-group col-md-2">
-      <label>Building Code</label>
-      <input type="text" class="form-control" name="Building">
-      </div>
-      <div class="form-group col-md-2">
+        <div class="form-group col-md-2">
         <label>Room Number</label>
-        <input type="text" class="form-control" name="Room_number">
+        <input type="text" name="Room_number" class="form-control" placeholder="Room Number" value="<?=$row['Room_number']?>" required="required">
       </div>
+ 
       <div class="form-group col-md-2">
         <label>Key Number</label>
-        <input type="text" class="form-control" name="key_number">
+        <input type="text" name="key_number" class="form-control" placeholder="Key Number" value="<?=$row['key_number']?>" required="required">
       </div>
+    
       <div class="form-group col-md-2">
         <label>Core Number</label>
-        <input type="text" class="form-control" name="Core_number">
+        <input type="text" name="Core_number" class="form-control" placeholder="Core Number" value="<?=$row['Core_number']?>" required="required">
       </div>
     </div>
     <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Submit</button>

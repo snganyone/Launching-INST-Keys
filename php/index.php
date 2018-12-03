@@ -4,28 +4,46 @@
   <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+<title>Query/View Inventory</title>
+
 <?php
-$config = parse_ini_file('php.ini');
-//Database Connection
-$mysqli = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
-else{
-  //echo "Success";
-}
-$sql = "SELECT CONCAT(IFNULL(First_name,''), ' ', IFNULL(Last_name,'')) AS employee, Building, Room_number, key_number, Core_number
-FROM people
-JOIN people_has_keys
-  ON people.id_names = people_has_keys.id_names
-    JOIN inst_490.keys k
-      ON people_has_keys.id_keys = k.id_keys
-JOIN room r
-  ON k.id_Room = r.id_Room
-JOIN core c
-  ON k.id_Core = c.id_Core
-  ORDER BY Last_name DESC";
-$query = $mysqli->query($sql);
+
+$e = "select * from People";
+$b = "select * from Room";
+$r = "select * from Room";
+$k = "select * from Keys";
+$c = "select * from Core";
+$row = null;
+
+require_once 'keyLogin.php';
+    $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
+    if ($conn->connect_error) die($conn->connect_error);
+
+$employee = $conn->query($e);
+$building_code = $conn->query($b);
+$room_number = $conn->query($r);
+$key_number = $conn->query($k);
+$core_number = $conn->query($c);
+
+if ($_GET['eid']) {
+    $eidq = "select * from People where id_names = " . $_GET['eid'];
+    $em = $conn->query($eidq);
+    $row = $em->fetch_assoc();
+  }
+
+$sql = "SELECT CONCAT(IFNULL(First_Name, ''), ' ',IFNULL(Last_name, '')) AS employee, Building, Room_number, key_number, Core_number
+  FROM people
+  JOIN people_has_keys
+    ON people.id_names = people_has_keys.id_names
+      JOIN inst_490.keys k
+        ON people_has_keys.id_keys = k.id_keys
+  JOIN room r
+    ON k.id_Room = r.id_Room
+  JOIN core c
+    ON k.id_Core = c.id_Core
+    ORDER BY Last_name DESC";
+$query = $conn->query($sql);
+
 ?>
 </head>
 <body>
@@ -45,10 +63,10 @@ $query = $mysqli->query($sql);
           <a class="nav-link active" href="index.php">Home(Query/View) Inventory</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inventory</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit Inventory</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="insert.php">Add Inventory</a>
-            <a class="dropdown-item" href="#">Update Inventory</a>
+            <a class="dropdown-item" href="insert.php">Add to Inventory</a>
+            <a class="dropdown-item" href="update.php">Update Inventory</a>
           </div>
         </li>
         <li class="nav-item">
@@ -62,21 +80,30 @@ $query = $mysqli->query($sql);
     <div class="row">
       <div class="col-sm-4">
     <div class="dropdown">
-      <b>Search by</b>
+      <b>Search By</b>
       <br><br>
-      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Employee</button>
+      <select id="dropdown" class="form-control" required="required">
+        <option value="" selected="selected">Please Make a Choice</option>
+        <option value="">Employee</option>
+        <option value="">Building Code</option>
+        <option value="">Room Number</option>
+        <option value="">Key Number</option>
+        <option value="">Core Number</option>
+      </select>
+<!--       <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Employee</button>
       <div class="dropdown-menu">
         <button class="dropdown-item active">Building Code</button>
         <button class="dropdown-item">Room Number</button>
         <button class="dropdown-item">Key Number</button>
         <button class="dropdown-item">Core Number</button>
-      </div>
+      </div> -->
+      <input type="text" class="form-control hidden" id="input">
       </div>
       <br>
-      <button class="btn btn-outline-primary">Search</button>
+      <!-- <button id="searchB" class="btn btn-outline-primary">Search</button> -->
       </div>
   <div class="col-sm-8">
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="table">
       <thead>
         <tr>
           <th>Employee</th>
@@ -88,12 +115,12 @@ $query = $mysqli->query($sql);
       </thead>
       <tbody>
         <?php foreach($query as $q){ ?>
-        <tr>
-          <td><?php echo $q['employee']; ?></td>
-          <td><?php echo $q['Building']; ?></td>
-          <td><?php echo $q['Room_number']; ?></td>
-          <td><?php echo $q['key_number'];?></td>
-          <td><?php echo $q['Core_number'];?></td>
+        <tr class="rowResults">
+          <td class="employee"><?php echo $q['employee']; ?></td>
+          <td class="building"><?php echo $q['Building']; ?></td>
+          <td class="roomNumber"><?php echo $q['Room_number']; ?></td>
+          <td class="keyNumber"><?php echo $q['key_number'];?></td>
+          <td class="coreNumber"><?php echo $q['Core_number'];?></td>
         </tr>
         <?php } ?>
       </tbody>
@@ -108,5 +135,27 @@ $query = $mysqli->query($sql);
 <!-- JQuery -->
 <!-- JavaScript -->
 <script src="js/script.js"></script>
+<script>
+$(document).ready(function(){
+  $("#input").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#table .rowResults").filter(function() {
+      $dropdownSelection = $("#dropdown :selected").text();
+      if($dropdownSelection == "Employee"){
+        $(this).toggle($(this).find(".employee").text().toLowerCase().indexOf(value) > -1)
+      }else if($dropdownSelection == "Building Code"){
+        $(this).toggle($(this).find(".building").text().toLowerCase().indexOf(value) > -1)
+      }else if($dropdownSelection == "Room Number"){
+        $(this).toggle($(this).find(".roomNumber").text().toLowerCase().indexOf(value) > -1)
+      }else if($dropdownSelection == "Key Number"){
+        $(this).toggle($(this).find(".keyNumber").text().toLowerCase().indexOf(value) > -1)
+      }else if($dropdownSelection == "Core Number"){
+        $(this).toggle($(this).find(".coreNumber").text().toLowerCase().indexOf(value) > -1)
+      }
+      
+    });
+  });
+});
+</script>
 </body>
 </html>

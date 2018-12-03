@@ -4,7 +4,15 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <?php
-$config = parse_ini_file('php.ini');
+
+$e = "select First_name, Last_name, id_names from People";
+$b = "select distinct Building from Room";
+$r = "select Room_number, id_Room from Room";
+$k = "select key_number from Keys";
+$c = "select Core_number from Core";
+$row = null;
+
+/*$config = parse_ini_file('php.ini');
 //Database Connection
 $mysqli = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
 if ($mysqli->connect_errno) {
@@ -12,19 +20,36 @@ if ($mysqli->connect_errno) {
 }
 else{
 //echo "Success";
-}
+}*/
+require_once 'keyLogin.php';
+    $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
+    if ($conn->connect_error) die($conn->connect_error);
+
+$employee = $conn->query($e);
+$building_code = $conn->query($b);
+$room_number = $conn->query($r);
+$key_number = $conn->query($k);
+$core_number = $conn->query($c);
+
+if ($_GET['eid']) {
+    $eidq = "select * from People where id_names = " . $_GET['eid'];
+    $em = $conn->query($eidq);
+    $row = $em->fetch_assoc();
+  }
+
 $sql = "SELECT CONCAT(First_name, ' ', Last_name) AS employee, Building, Room_number, key_number, Core_number
-  FROM people
+  FROM People
   RIGHT JOIN people_has_keys
     ON people.id_names = people_has_keys.id_names
       LEFT JOIN inst_490.keys k
         ON people_has_keys.id_keys = k.id_keys
-  RIGHT JOIN room r
+  RIGHT JOIN Room r
     ON k.id_Room = r.id_Room
-  RIGHT JOIN core c
+  RIGHT JOIN Core c
     ON k.id_Core = c.id_Core
     ORDER BY Last_name DESC";
-$query = $mysqli->query($sql);
+$query = $conn->query($sql);
+
 ?>
 </head>
 <body>
@@ -44,10 +69,10 @@ $query = $mysqli->query($sql);
               <a class="nav-link" href="index.php">Home(Query/View) Inventory</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inventory</a>
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit Inventory</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Add Inventory</a>
-                <a class="dropdown-item" href="#">Update Inventory</a>
+                <a class="dropdown-item" href="insert.php">Add to Inventory</a>
+                <a class="dropdown-item" href="update.php">Update Inventory</a>
               </div>
             </li>
             <li class="nav-item">

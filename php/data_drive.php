@@ -1,38 +1,31 @@
 <?php
-$config = parse_ini_file('php.ini');
-//Database Connection
-$mysqli = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
-if ($mysqli->connect_errno) {
-  echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
-else{
-//echo "Success";
-}
+require_once 'keyLogin.php';
+    $conn = new mysqli($hostname, $user, $pword, $database);
+    if ($conn->connect_error) die($conn->connect_error);
 
 //Store Data to Post array
-$first_name = $_POST['First_name'];
-$last_name = $_POST['Last_name'];
+$name = $_POST['name'];    
 $building_code = $_POST['Building'];
 $room = $_POST['Room_number'];
 $key = $_POST['key_number'];
 $core = $_POST['Core_number'];
-$id_core = "SELECT id_Core AS id_core FROM inst_490.core";
-$id_room = "SELECT id_Room AS id_room FROM inst_490.room";
-$a = $mysqli->query($id_core);
-$b = $mysqli->query($id_room);
+//$id_core = $_POST['id_Core'];
+//$id_room = $_POST['id_Room'];
 
 //SQL Injection
 if(isset($_POST['submit'])){
-  foreach($a as $result){
-    $sql = "INSERT INTO core VALUES(NULL, '$core');";
-    $sql .= "INSERT INTO people VALUES(NULL, '$first_name', '$last_name');";
-    $sql .= "INSERT INTO room VALUES(NULL, '$room', '$building_code');";
-    $sql .= "INSERT INTO keys VALUES(NULL, '$key', '$id_core', '$id_room')";
-    $query = $mysqli->multi_query($sql);
-  }
-  print_r($_POST);
+  $sql = "INSERT INTO core VALUES(NULL, '$core');";
+  //$sql .= "INSERT INTO people VALUES(NULL, '$first_name', '$last_name');";
+  $sql .= "SET @idCore = LAST_INSERT_ID();";
+  $sql .= "INSERT INTO room VALUES(NULL, '$room', '$building_code');";
+  $sql .= "SET @idRoom = LAST_INSERT_ID();";
+  $sql .= "INSERT INTO `keys` VALUES(NULL, '$key', @idCore, @idRoom);";
+  $sql .= "SET @idKey = LAST_INSERT_ID();";
+  $sql .= "INSERT INTO People_has_Keys VALUES('$name', @idKey);";
+  $query = $conn->multi_query($sql);
+  echo "success";
 }
 else{
   echo "Failure";
 }
- ?>
+?>
