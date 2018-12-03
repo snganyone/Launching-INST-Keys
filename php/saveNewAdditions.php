@@ -1,3 +1,4 @@
+
 <?php
 require_once 'keyLogin.php';
     $conn = new mysqli($hostname, $user, $pword, $database);
@@ -9,8 +10,6 @@ $building_code = $_POST['Building'];
 $room = $_POST['Room_number'];
 $key = $_POST['key_number'];
 $core = $_POST['Core_number'];
-//$id_core = $_POST['id_Core'];
-//$id_room = $_POST['id_Room'];
 
 //SQL Injection
 if(isset($_POST['submit'])){
@@ -23,7 +22,8 @@ if(isset($_POST['submit'])){
   $sql .= "SET @idKey = LAST_INSERT_ID();";
   $sql .= "INSERT INTO People_has_Keys VALUES('$name', @idKey);";
   $query = $conn->multi_query($sql);
-  echo "success";
+  echo "<script> alert('Successfully Added to Inventory'); window.location.href='addToInventory.php'; </script>";
+
 }
 else{
   echo "Failure";

@@ -4,7 +4,7 @@
   <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-<title>Query/View Inventory</title>
+<title>View/Search Inventory</title>
 
 <?php
 
@@ -41,7 +41,7 @@ $sql = "SELECT CONCAT(IFNULL(First_Name, ''), ' ',IFNULL(Last_name, '')) AS empl
     ON k.id_Room = r.id_Room
   JOIN core c
     ON k.id_Core = c.id_Core
-    ORDER BY Last_name DESC";
+    ORDER BY Last_name ASC";
 $query = $conn->query($sql);
 
 ?>
@@ -60,13 +60,13 @@ $query = $conn->query($sql);
     <div class="container">
       <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php">Home(Query/View) Inventory</a>
+          <a class="nav-link active" href="viewInventory.php">View/Search Inventory</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit Inventory</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="insert.php">Add to Inventory</a>
-            <a class="dropdown-item" href="update.php">Update Inventory</a>
+            <a class="dropdown-item" href="addToInventory.php">Add to Inventory</a>
+            <a class="dropdown-item" href="updateInventory.php">Update Inventory</a>
           </div>
         </li>
         <li class="nav-item">
@@ -90,13 +90,7 @@ $query = $conn->query($sql);
         <option value="">Key Number</option>
         <option value="">Core Number</option>
       </select>
-<!--       <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Employee</button>
-      <div class="dropdown-menu">
-        <button class="dropdown-item active">Building Code</button>
-        <button class="dropdown-item">Room Number</button>
-        <button class="dropdown-item">Key Number</button>
-        <button class="dropdown-item">Core Number</button>
-      </div> -->
+
       <input type="text" class="form-control hidden" id="input">
       </div>
       <br>

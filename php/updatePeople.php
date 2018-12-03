@@ -32,13 +32,6 @@ $query = $conn->query($sql);
 ?>
 
 <script type="text/javascript" src="js/valid.js"></script>
-
-<!-- <style>
-  table tr:not(:first-child){
-    cursor: pointer;transition: all .25s ease-in-out;
-  }
-  table tr:not(:first-child):hover(background-color:#ddd;)
-</style> -->
 </head>
 <body>
   <div class="container shadow-sm p-3 mb-5 bg-white rounded">
@@ -69,46 +62,6 @@ $query = $conn->query($sql);
         </ul>
       </div>
 <br><br><br>
-<!-- <div>
-  <form method="post" action="data_drive.php">
-    <div class="form-row">
-      <div class="form-group col-md-6">
-      <label>First Name</label>
-      <input type="text" class="form-control" onchange="validText(this.value, this.name)" value="<?=$row['First_name']?>" id="First_name" name="First_name" placeholder="First Name" required="required">
-      <span class="small text-warning" id="First_nameErr"></span>
-      </div>
-      <div class="form-group col-md-6">
-        <label>Last Name</label>
-        <input type="text" class="form-control" onchange="validText(this.value, this.name)" value="<?=$row['Last_name']?>" id="Last_name" name="Last_name" placeholder="Last Name" required="required">
-        <span class="small text-warning" id="Last_nameErr"></span>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-2">
-      <label>Building Code</label>
-      <input type="text" class="form-control" onchange="validText(this.value, this.name)" value="<?=$row['Building']?>" id="Building" name="Building" placeholder="Building Code" required="required">
-      <span class="small text-warning" id="BuildingErr"></span>
-      </div>
-      <div class="form-group col-md-2">
-        <label>Room Number</label>
-        <input type="text" class="form-control" onchange="validText(this.value, this.name)" value="<?=$row['Room_number']?>" id="Room_number" name="Room_number" placeholder="Room Number" required="required">
-        <span class="small text-warning" id="Room_numberErr"></span>
-      </div>
-      <div class="form-group col-md-2">
-        <label>Key Number</label>
-        <input type="text" class="form-control" onchange="validText(this.value, this.name)" value="<?=$row['key_number']?>" id="key_number" name="key_number" placeholder="Key Number" required="required">
-        <span class="small text-warning" id="key_numberErr"></span>
-      </div>
-      <div class="form-group col-md-2">
-        <label>Core Number</label>
-        <input type="text" class="form-control" onchange="validText(this.value, this.name)" value="<?=$row['Core_number']?>" id="Core_number" name="Core_number" placeholder="Core Number" required="required">
-        <span class="small text-warning" id="Core_numberErr"></span>
-      </div>
-    </div>
-    <button type="submit" class="btn btn-success" onchange="validText(this.value, this.name)" value="submit" name="submit" id="submit">Submit</button>
-  </form>
-</div>
-<br><br><br> -->
 <div>
     <table id="table" class="table table-bordered">
       <thead>
@@ -120,7 +73,7 @@ $query = $conn->query($sql);
       </thead>
       <tbody>
         <?php foreach($query as $q){ ?>
-        <form method="POST" action="updateEmployee.php">
+        <form method="POST" action="updatePeople.php">
           
         
         <tr>

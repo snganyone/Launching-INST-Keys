@@ -1,5 +1,5 @@
 <?php 
-// insertmodel.php
+// functions.php
 function employeeName($eid, $conn) {
 	$eidq = "select * from People where id_names = " . $eid;
 	if ($conn->connect_error) {echo 'no connection'; die();}
@@ -13,7 +13,7 @@ function dropdown($fld, $data, $oneval) {
 	echo '<option value="" selected="selected">Please Make a Choice</option>';
 	foreach ($data as $r) {
 		if ($r[$fld] == $oneval) {
-			echo '<option value="' . $r[$fld] . '" selected="selected">' . $r[$fld] . '</option>';
+			echo '<option value="' . $r[$fld] . '" >' . $r[$fld] . '</option>';
 		} else {
 			echo '<option value="' . $r[$fld] . '">' . $r[$fld] . '</option>';
 		}

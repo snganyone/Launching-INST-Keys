@@ -9,38 +9,45 @@
 <?php
 
 $e = "select * from People";
+$b = "select * from Room";
+$r = "select * from Room";
+$k = "select * from Keys";
+$c = "select * from Core";
 $row = null;
 
 require_once 'keyLogin.php';
     $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
     if ($conn->connect_error) die($conn->connect_error);
-    
+    $result = $conn->query($e);
 
-//$employee = $conn->query($e);
-
-if(isset($_POST['update'])){
-  $idKeys = $_POST['idKeys'];
-  $id_names = $_POST['name'];
-  $oldName = $_POST['oldName'];
-
-  $sql = "UPDATE people_Has_Keys SET id_names='$id_names' WHERE id_names='$oldName' AND id_keys='$idKeys';";
-  //echo $sql;
-  $conn->query($sql);
-}
-$result = $conn->query($e);
 $employee = $conn->query($e);
-$sql = "SELECT * FROM `Keys` JOIN people_Has_Keys ON `Keys`.id_keys = people_Has_Keys.id_keys JOIN People on people_Has_Keys.id_names = People.id_names ORDER BY key_number;";
+$building_code = $conn->query($b);
+$room_number = $conn->query($r);
+$key_number = $conn->query($k);
+$core_number = $conn->query($c);
+
+if ($_GET['eid']) {
+    $eidq = "select * from People where id_names = " . $_GET['eid'];
+    $em = $conn->query($eidq);
+    $row = $em->fetch_assoc();
+  }
+
+$sql = "SELECT CONCAT(IFNULL(First_Name, ''), ' ',IFNULL(Last_name, '')) AS employee, Building, Room_number, key_number, Core_number
+  FROM people
+  JOIN people_has_keys
+    ON people.id_names = people_has_keys.id_names
+      JOIN inst_490.keys k
+        ON people_has_keys.id_keys = k.id_keys
+  JOIN room r
+    ON k.id_Room = r.id_Room
+  JOIN core c
+    ON k.id_Core = c.id_Core
+    ORDER BY Last_name ASC";
 $query = $conn->query($sql);
 ?>
 
 <script type="text/javascript" src="js/valid.js"></script>
 
-<!-- <style>
-  table tr:not(:first-child){
-    cursor: pointer;transition: all .25s ease-in-out;
-  }
-  table tr:not(:first-child):hover(background-color:#ddd;)
-</style> -->
 </head>
 <body>
   <div class="container shadow-sm p-3 mb-5 bg-white rounded">
@@ -56,13 +63,13 @@ $query = $conn->query($sql);
       <div class="container">
         <ul class="nav nav-pills nav-fill">
           <li class="nav-item">
-            <a class="nav-link" href="index.php">Home(Query/View) Inventory</a>
+            <a class="nav-link" href="viewInventory.php">View/Search Inventory</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit Inventory</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="insert.php">Add to Inventory</a>
-              <a class="dropdown-item" href="update.php">Update Inventory</a>
+              <a class="dropdown-item" href="addToInventory.php">Add to Inventory</a>
+              <a class="dropdown-item" href="updateInventory.php">Update Inventory</a>
             </div>
           </li>
           <li class="nav-item">
@@ -72,7 +79,7 @@ $query = $conn->query($sql);
       </div>
 <br><br><br>
 <div>
-  <form method="post" action="data_drive.php">
+  <form method="post" action="saveNewAdditions.php">
     <div class="form-row">
       <div class="form-group col-md-6">
       <label>First Name</label>
@@ -115,50 +122,25 @@ $query = $conn->query($sql);
     <table id="table" class="table table-bordered">
       <thead>
         <tr>
-          <th>Key</th>
           <th>Employee</th>
-          <th>Edit</th>
+          <th>Building Code</th>
+          <th>Room Number</th>
+          <th>Key Number</th>
+          <th>Core Number</th>
         </tr>
       </thead>
       <tbody>
         <?php foreach($query as $q){ ?>
-        <form method="POST" action="peopleHasKeys.php">
-          
-        
         <tr>
+          <td><?php echo $q['employee']; ?></td>
+          <td><?php echo $q['Building']; ?></td>
+          <td><?php echo $q['Room_number']; ?></td>
           <td><?php echo $q['key_number'];?></td>
-          <td><select name="name" class="form-control" required="required">
-          <?php foreach ($employee as $r): ?>
-                <?php if ($r['id_names'] == $q['id_names']): ?>
-                  <option value="<?=$r['id_names']?>" selected="selected"><?=$r['First_name'] . " " . $r['Last_name']?></option>
-                <?php else: ?>
-                  <option value="<?=$r['id_names']?>"><?=$r['First_name'] . " " . $r['Last_name']?></option>
-                <?php endif ?>
-              <?php endforeach ?>
-        </select></td>
-          <td><input type="hidden" name="idKeys" value="<?=$q['id_keys']?>"><button type="submit" class="btn btn-success" onchange="validText(this.value, this.name)" value="update" name="update" id="update">Update</button> <input type="hidden" name="oldName" value="<?=$q['id_names']?>"></td>
+          <td><?php echo $q['Core_number'];?></td>
         </tr>
-        </form>
         <?php } ?>
       </tbody>
     </table>
-<!--     <script>
-      var table=document.getElementById('table');
-
-      for(var i=1; i<table.rows.length;i++){
-        table.rows[i].onclick = fucntion(){
-          //rIndex = this.rowIndex;
-          document.getElementById("First_name").value=this.cells[0].innerHTMl;
-          document.getElementById("Last_name").value=this.cells[1].innerHTMl;
-          document.getElementById("Building").value=this.cells[2].innerHTMl;
-          document.getElementById("Room_number").value=this.cells[3].innerHTMl;
-          document.getElementById("key_number").value=this.cells[4].innerHTMl;
-          document.getElementById("Core_number").value=this.cells[4].innerHTMl;
-        };
-
-    
-      }
-</script> -->
     </div>
 <!-- Bootstrap JavaScript -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

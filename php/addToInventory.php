@@ -15,15 +15,6 @@ $k = "select * from Keys";
 $c = "select * from Core";
 $row = null;
 
-/*$config = parse_ini_file('php.ini');
-//Database Connection
-$mysqli = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
-if ($mysqli->connect_errno) {
-  echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
-else{
-//echo "Success";
-}*/
 require_once 'keyLogin.php';
     $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
     if ($conn->connect_error) die($conn->connect_error);
@@ -50,10 +41,10 @@ $sql = "SELECT CONCAT(IFNULL(First_Name, ''), ' ',IFNULL(Last_name, '')) AS empl
     ON k.id_Room = r.id_Room
   JOIN core c
     ON k.id_Core = c.id_Core
-    ORDER BY Last_name DESC";
+    ORDER BY Last_name ASC";
 $query = $conn->query($sql);
 
-include 'insertModel.php'
+include 'functions.php'
 ?>
 </head>
 <body>
@@ -70,13 +61,13 @@ include 'insertModel.php'
       <div class="container">
         <ul class="nav nav-pills nav-fill">
           <li class="nav-item">
-            <a class="nav-link" href="index.php">Home(Query/View) Inventory</a>
+            <a class="nav-link" href="viewInventory.php">View/Search Inventory</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit Inventory</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="insert.php">Add to Inventory</a>
-              <a class="dropdown-item" href="update.php">Update Inventory</a>
+              <a class="dropdown-item" href="addToInventory.php">Add to Inventory</a>
+              <a class="dropdown-item" href="updateInventory.php">Update Inventory</a>
             </div>
           </li>
           <li class="nav-item">
@@ -86,7 +77,7 @@ include 'insertModel.php'
       </div>
 <br><br><br>
 <div>
-  <form method="post" action="data_drive.php">
+  <form method="post" action="saveNewAdditions.php">
     <div class="form-row">
       <div class="form-group col-md-2">
         <label>Employee</label>
@@ -102,7 +93,7 @@ include 'insertModel.php'
         </select>
       </div>
       <div class="form-group col-md-2">
-        <a href="FormAdd.php" class="btn btn-info">Add New Employee</a>
+        <a href="addPeople.php" class="btn btn-info">Add New Employee</a>
       </div>
 
      <div class="form-group col-md-2">
@@ -110,7 +101,7 @@ include 'insertModel.php'
       <?=dropdown('Building', $building_code, $row['Building'])?>
       </div>
       <div class="form-group col-md-2">
-        <a href="FormAdd2.php" class="btn btn-info">Add New Building Code</a>
+        <a href="addBuildingCode.php" class="btn btn-info">Add New Building Code</a>
       </div>
 
     </div>
@@ -135,7 +126,7 @@ include 'insertModel.php'
 </div>
 <br><br><br>
 <div>
-  <table class="table table-bordered">
+  <table name="table" class="table table-bordered">
     <thead>
       <tr>
         <th>Employee</th>

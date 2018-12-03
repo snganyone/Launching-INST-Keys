@@ -46,13 +46,13 @@ if ($_GET['eid']) {
       <div class="container">
         <ul class="nav nav-pills nav-fill">
           <li class="nav-item">
-            <a class="nav-link" href="index.php">Home(Query/View) Inventory</a>
+            <a class="nav-link" href="viewInventory.php">View/Search Inventory</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit Inventory</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="insert.php">Add to Inventory</a>
-              <a class="dropdown-item" href="update.php">Update Inventory</a>
+              <a class="dropdown-item" href="addToInventory.php">Add to Inventory</a>
+              <a class="dropdown-item" href="updateInventory.php">Update Inventory</a>
             </div>
           </li>
           <li class="nav-item">
@@ -62,21 +62,22 @@ if ($_GET['eid']) {
       </div>
 <br><br><br>
 <div>
-  <form method="post" action="saveEmployee.php">
+  <form method="post" action="savePeople.php">
     <div class="form-row">
     	<input type="hidden" value="<?=$row['id_names']?>">
       <div class="form-group col-md-2">
-		<label>Employee Name</label>
+		<label>Employee</label>
           			<div class="form-group">
-						<input type="text" onchange="validText(this.value, this.name)" class="form-control" name="First_name" placeholder="First Name" value="<?=$row['First_name']?>">
-						<span class="small text-warning" id="First_nameErr"></span>
+						<input type="text" onchange="validText(this.value, this.name)" class="form-control" name="First_name" id="First_name" placeholder="First Name" value="<?=$row['First_name']?>" required="required">
+						<span class="text-warning" id="First_nameErr"></span>
 					</div>
 					<div class="form-group">
-						<input type="text" onchange="validText(this.value, this.name)" class="form-control" name="Last_name" placeholder="Last Name" value="<?=$row['Last_name']?>">
-						<span class="small text-warning" id="Last_nameErr"></span>
+						<input type="text" onchange="validText(this.value, this.name)" class="form-control" name="Last_name" id="Last_name" placeholder="Last Name" value="<?=$row['Last_name']?>" required="required">
+						<span class="text-warning" id="Last_nameErr"></span>
 					</div>
     <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Submit</button>
-  </div></div>
+  </div>
+</div>
   </form>
 
 <br><br><br>
@@ -86,7 +87,7 @@ if ($_GET['eid']) {
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Employee Name</th>
+        <th>Employee</th>
       </tr>
     </thead>
     <tbody>

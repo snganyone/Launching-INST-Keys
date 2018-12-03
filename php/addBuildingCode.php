@@ -46,13 +46,13 @@ if ($_GET['bid']) {
       <div class="container">
         <ul class="nav nav-pills nav-fill">
           <li class="nav-item">
-            <a class="nav-link" href="index.php">Home(Query/View) Inventory</a>
+            <a class="nav-link" href="viewInventory.php">View/Search Inventory</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Edit Inventory</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="insert.php">Add to Inventory</a>
-              <a class="dropdown-item" href="update.php">Update Inventory</a>
+              <a class="dropdown-item" href="addToInventory.php">Add to Inventory</a>
+              <a class="dropdown-item" href="updateInventory.php">Update Inventory</a>
             </div>
           </li>
           <li class="nav-item">
@@ -62,14 +62,14 @@ if ($_GET['bid']) {
       </div>
 <br><br><br>
 <div>
-  <form method="post" action="saveBuilding.php">
+  <form method="post" action="saveBuildingCode.php">
     <div class="form-row">
     	<input type="hidden" value="<?=$row['id_Room']?>">
       <div class="form-group col-md-2">
 		<label>Building Code</label>
           			<div class="form-group">
-						<input type="text" onchange="validText(this.value, this.name)" class="form-control" name="Building" placeholder="Building Code" value="<?=$row['Building']?>">
-						<span class="small text-warning" id="BuildingErr"></span>
+						<input type="text" onchange="validText(this.value, this.name)" class="form-control" name="Building" id="Building" placeholder="Building Code" value="<?=$row['Building']?>" required="required">
+						<span class="text-warning" id="BuildingErr"></span>
 					</div>
     <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Submit</button>
   </div></div>
