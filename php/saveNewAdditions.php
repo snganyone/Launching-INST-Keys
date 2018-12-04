@@ -1,11 +1,17 @@
 
 <?php
-require_once 'keyLogin.php';
-    $conn = new mysqli($hostname, $user, $pword, $database);
-    if ($conn->connect_error) die($conn->connect_error);
+$config = parse_ini_file('php.ini');
+//Database Connection
+$conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
+if ($conn->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+else{
+  //echo "Success";
+}
 
 //Store Data to Post array
-$name = $_POST['name'];    
+$name = $_POST['name'];
 $building_code = $_POST['Building'];
 $room = $_POST['Room_number'];
 $key = $_POST['key_number'];

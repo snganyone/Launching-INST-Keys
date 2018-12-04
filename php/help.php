@@ -13,9 +13,15 @@ $k = "select key_number from Keys";
 $c = "select Core_number from Core";
 $row = null;
 
-require_once 'keyLogin.php';
-    $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
-    if ($conn->connect_error) die($conn->connect_error);
+$config = parse_ini_file('php.ini');
+//Database Connection
+$conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
+if ($conn->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+else{
+  //echo "Success";
+}
 
 $employee = $conn->query($e);
 $building_code = $conn->query($b);
@@ -86,7 +92,7 @@ Room Number - Unique number that identifies each room within a building.<br>
 Key Number - Unique identifier pertaining to each individual key.<br>
 Core Number - Unique identifier for the core unit that is functional with certain keys.</p>
 
-<p>Each of these parameters can be accessed via the drop-down on the left side of “Home” page. 
+<p>Each of these parameters can be accessed via the drop-down on the left side of “Home” page.
 
 In order to perform a search, select one of the identifiers and type the desired search term into the “search” box found below the drop-down. Once your desired search term is inputted you may click on search and your results will appear in the table on the right side of the screen.</p>
 

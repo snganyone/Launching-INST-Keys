@@ -8,10 +8,15 @@
 
 <?php
 
-require_once 'keyLogin.php';
-    $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
-    if ($conn->connect_error) die($conn->connect_error);
- 
+$config = parse_ini_file('php.ini');
+//Database Connection
+$conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+else{
+  //echo "Success";
+}
 
  $e = "SELECT * FROM People";
   $employee = $conn->query($e);
@@ -182,7 +187,7 @@ $(document).ready(function(){
       }else if($dropdownSelection == "Core Number"){
         $(this).toggle($(this).find(".coreNumber").text().toLowerCase().indexOf(value) > -1)
       }
-      
+
     });
   });
 });

@@ -15,9 +15,15 @@ $k = "select * from Keys";
 $c = "select * from Core";
 $row = null;
 
-require_once 'keyLogin.php';
-    $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
-    if ($conn->connect_error) die($conn->connect_error);
+$config = parse_ini_file('php.ini');
+//Database Connection
+$conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
+if ($conn->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+else{
+  //echo "Success";
+}
 
 $employee = $conn->query($e);
 $building_code = $conn->query($b);
@@ -110,12 +116,12 @@ include 'functions.php'
         <label>Room Number</label>
         <input type="text" name="Room_number" class="form-control" placeholder="Room Number" value="<?=$row['Room_number']?>" required="required">
       </div>
- 
+
       <div class="form-group col-md-2">
         <label>Key Number</label>
         <input type="text" name="key_number" class="form-control" placeholder="Key Number" value="<?=$row['key_number']?>" required="required">
       </div>
-    
+
       <div class="form-group col-md-2">
         <label>Core Number</label>
         <input type="text" name="Core_number" class="form-control" placeholder="Core Number" value="<?=$row['Core_number']?>" required="required">
