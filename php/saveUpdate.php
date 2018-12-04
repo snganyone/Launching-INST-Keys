@@ -1,8 +1,14 @@
 <?php
-require_once 'keyLogin.php';
-    $conn = new mysqli($hostname, $user, $pword, $database);
-    if ($conn->connect_error) die($conn->connect_error);
-  
+$config = parse_ini_file('php.ini');
+//Database Connection
+$conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
+if ($conn->connect_errno) {
+		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+else{
+	//echo "Success";
+}
+
   $First_name = $_POST['First_name'];
   $Last_name = $_POST['Last_name'];
   $peopleID = $_POST['peopleID'];
@@ -88,7 +94,7 @@ elseif (isset($_POST['update']) && (mysqli_num_rows($EName) >= 1) && (mysqli_num
    //echo $sql;
    $query = $conn->multi_query($sql);
    echo "<script> alert('Successfully Updated Inventory'); window.location.href='updateInventory.php'; </script>";
-}//Changing the Core Number and its corresponding values 
+}//Changing the Core Number and its corresponding values
 elseif (isset($_POST['update']) && (mysqli_num_rows($EName) >= 1) && (mysqli_num_rows($RTable) == 0) && (mysqli_num_rows($CNumber) == 0)) {
      $sql = "DELETE FROM `keys` WHERE id_keys='$oldKeys' AND key_number='$oldKeyNum' AND id_Core='$oldCore' AND id_Room='$oldRoomId';";
      $sql .= "DELETE FROM Core WHERE id_Core='$oldCore' AND Core_number='$Core_number';";
@@ -100,7 +106,7 @@ elseif (isset($_POST['update']) && (mysqli_num_rows($EName) >= 1) && (mysqli_num
    $query = $conn->multi_query($sql);
    echo "<script> alert('Successfully Updated Inventory'); window.location.href='updateInventory.php'; </script>";
 }
-//Changing the Building Code and its corresponding values 
+//Changing the Building Code and its corresponding values
 elseif (isset($_POST['update']) && (mysqli_num_rows($EName) >= 1) && (mysqli_num_rows($RTable) == 0) && (mysqli_num_rows($CNumber) == 0)) {
      $sql = "INSERT INTO Core VALUES(NULL, '$Core_number');";
      $sql .= "SET @idCore = LAST_INSERT_ID();";

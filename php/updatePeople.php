@@ -11,10 +11,15 @@
 $e = "select * from People";
 $row = null;
 
-require_once 'keyLogin.php';
-    $conn = new mysqli($hostname, $user, $pword, $database, 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
-    if ($conn->connect_error) die($conn->connect_error);
-    $result = $conn->query($e);
+$config = parse_ini_file('php.ini');
+//Database Connection
+$conn = mysqli_connect($config['servername'], $config['username'], $config['password'], $config['dbname'], $config['port']);
+if ($conn->connect_errno) {
+		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+else{
+	//echo "Success";
+}
 
 //$employee = $conn->query($e);
 
@@ -74,8 +79,8 @@ $query = $conn->query($sql);
       <tbody>
         <?php foreach($query as $q){ ?>
         <form method="POST" action="updatePeople.php">
-          
-        
+
+
         <tr>
           <td><input type="text" class="form-control" onchange="validText(this.value, this.name)" value="<?=$q['First_name']?>" id="First_name" name="First_name" required="required"></td>
           <td><input type="text" class="form-control" onchange="validText(this.value, this.name)" value="<?=$q['Last_name']?>" id="Last_name" name="Last_name"  required="required"></td>
@@ -99,7 +104,7 @@ $query = $conn->query($sql);
           document.getElementById("Core_number").value=this.cells[4].innerHTMl;
         };
 
-    
+
       }
 </script> -->
     </div>
